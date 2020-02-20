@@ -22,6 +22,8 @@ public class Simulator {
                     } else {
                         daysTillNextReg = currentReg.getSignUpProcess();
                     }
+                } else {
+                    break;
                 }
             }
             if (daysTillNextReg == 0) {

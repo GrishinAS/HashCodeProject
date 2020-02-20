@@ -1,21 +1,21 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Library {
     private int number;
-    private ArrayList<Book> books = new ArrayList<Book>();
+    private ArrayList<Book> books = new ArrayList<>();
 
-    public ArrayList<Book> getAlreadyGivenBooks() {
+    public Set<Book> getAlreadyGivenBooks() {
         return alreadyGivenBooks;
     }
 
-    public void setAlreadyGivenBooks(ArrayList<Book> alreadyGivenBooks) {
+    public void setAlreadyGivenBooks(Set<Book> alreadyGivenBooks) {
         this.alreadyGivenBooks = alreadyGivenBooks;
     }
 
-    private ArrayList<Book> alreadyGivenBooks = new ArrayList<Book>();
+    private Set<Book> alreadyGivenBooks = new HashSet<>();
     private int signUpProcess;
     private int booksPerDay;
     static int indexOfLib;
@@ -24,15 +24,14 @@ public class Library {
         number = indexOfLib++;
     }
 
-    public List<Book> getMostScoreBooks(List<Book> alreadyScannedBooks){
-        List<Book> resultBooks = new ArrayList<>();
-        for(Book book: this.books){
-            if(!alreadyScannedBooks.contains(book)){
-                resultBooks.add(book);
-            }
-        }
-        alreadyGivenBooks.addAll(resultBooks);
-        return resultBooks;
+    public List<Book> getMostScoreBooks(Set<Book> alreadyScannedBooks){
+        List<Book> collect = books.stream()
+                .filter(e -> !alreadyScannedBooks.contains(e))
+                .sorted(Comparator.comparingInt(book->-book.number))
+                .limit(booksPerDay)
+                .collect(Collectors.toList());
+        alreadyGivenBooks.addAll(collect);
+        return collect;
     }
 
     public int getNumber() {

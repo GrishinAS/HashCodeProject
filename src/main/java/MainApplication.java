@@ -3,6 +3,7 @@ import model.Library;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainApplication {
@@ -11,39 +12,52 @@ public class MainApplication {
     int booksN;
     int libsN;
     int daysToScan;
-    private String INPUT_FILENAME = "a_example.txt";
-    private String OUTPUT_FILENAME = INPUT_FILENAME + "_submission.txt";
+    private static String INPUT_FILENAMEa = "a_example.txt";
+    private static String INPUT_FILENAMEb = "b_read_on.txt";
+    private static String INPUT_FILENAMEc = "c_incunabula.txt";
+    private static String INPUT_FILENAMEd = "d_tough_choices.txt";
+    private static String INPUT_FILENAMEe = "e_so_many_books.txt";
+    private static String INPUT_FILENAMEf = "f_libraries_of_the_world.txt";
     static Simulator simulator;
 
 
     public static void main(String... args) throws Exception {
+        List<String> files = Arrays.asList(
+                INPUT_FILENAMEa,
+                INPUT_FILENAMEb,
+                INPUT_FILENAMEc,
+                INPUT_FILENAMEd,
+                INPUT_FILENAMEe,
+                INPUT_FILENAMEf);
         MainApplication mainApplication = new MainApplication();
-        mainApplication.parse();
         simulator = new Simulator();
-        mainApplication.sumbit();
+        for(String file: files){
+            mainApplication.parse(file);
+            mainApplication.sumbit(file);
+        }
     }
 
-    private void sumbit() {
-        try (PrintWriter writer = new PrintWriter(OUTPUT_FILENAME, "UTF-8")){
-            List<Library> simulateResultLibs = simulator.simulate(allLibs, daysToScan);
-            writer.println(simulateResultLibs.size());
-            for(Library library: simulateResultLibs){
-                writer.print(library.getNumber());
+    private void sumbit(String file) {
+        try (PrintWriter writer = new PrintWriter(file + "_submission.txt", "UTF-8")){
+            List<Library> readyLibs = simulator.simulate(allLibs, daysToScan);
+            writer.println(readyLibs.size());
+            for(Library library: readyLibs){
+                writer.print(library.getNumber()+" ");
                 writer.println(library.getAlreadyGivenBooks().size());
                 for (Book alreadyGivenBook : library.getAlreadyGivenBooks()) {
-                    writer.print(alreadyGivenBook.getNumber());
-                    writer.print("\n");
-                }
+                    writer.print(alreadyGivenBook.getNumber()+" ");
 
-                writer.println();
+                }
+                writer.print(" \n");
+                //writer.println();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void parse() throws Exception {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(INPUT_FILENAME))))) {
+    private void parse(String filename) throws Exception {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(filename))))) {
             String[] s = br.readLine().split(" ");
             booksN = Integer.parseInt(s[0]);
             libsN = Integer.parseInt(s[1]);

@@ -24,7 +24,7 @@ public class Library {
         number = indexOfLib++;
     }
 
-    List<Book> getMostScoreBooks(List<Book> alreadyScannedBooks){
+    public List<Book> getMostScoreBooks(List<Book> alreadyScannedBooks){
         List<Book> resultBooks = new ArrayList<>();
         for(Book book: this.books){
             if(!alreadyScannedBooks.contains(book)){

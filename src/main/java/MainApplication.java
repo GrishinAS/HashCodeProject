@@ -31,7 +31,7 @@ public class MainApplication {
                 allBooks.add(newBook);
             }
             Library newLib = null;
-            for (int i = 2; i <= libsN *2; i++) {
+            for (int i = 2; i <= libsN *2 + 1; i++) {
                 String[] libLine = br.readLine().split(" ");
                 if(i%2==0) {
                     newLib = new Library();

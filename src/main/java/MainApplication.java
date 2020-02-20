@@ -3,6 +3,7 @@ import model.Library;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainApplication {
     ArrayList<Book> allBooks = new ArrayList<>();//TODO init with right lenth
@@ -10,16 +11,39 @@ public class MainApplication {
     int booksN;
     int libsN;
     int daysToScan;
+    private String INPUT_FILENAME = "a_example.txt";
+    private String OUTPUT_FILENAME = INPUT_FILENAME + "_submission.txt";
+    static Simulator simulator;
 
 
     public static void main(String... args) throws Exception {
         MainApplication mainApplication = new MainApplication();
-        mainApplication.run();
-        System.out.println("Finish");
+        mainApplication.parse();
+        simulator = new Simulator();
+        mainApplication.sumbit();
     }
 
-    private void run() throws Exception {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File("a_example.txt"))))) {
+    private void sumbit() {
+        try (PrintWriter writer = new PrintWriter(OUTPUT_FILENAME, "UTF-8")){
+            List<Library> simulateResultLibs = simulator.simulate(allLibs, daysToScan);
+            writer.println(simulateResultLibs.size());
+            for(Library library: simulateResultLibs){
+                writer.print(library.getNumber());
+                writer.println(library.getAlreadyGivenBooks().size());
+                for (Book alreadyGivenBook : library.getAlreadyGivenBooks()) {
+                    writer.print(alreadyGivenBook.getNumber());
+                    writer.print("\n");
+                }
+
+                writer.println();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void parse() throws Exception {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(INPUT_FILENAME))))) {
             String[] s = br.readLine().split(" ");
             booksN = Integer.parseInt(s[0]);
             libsN = Integer.parseInt(s[1]);

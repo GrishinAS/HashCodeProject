@@ -31,6 +31,12 @@ public class Library {
                 .limit(booksPerDay)
                 .collect(Collectors.toList());
         alreadyGivenBooks.addAll(collect);
+        if(collect.isEmpty()){
+                    collect = books.stream()
+                    .sorted(Comparator.comparingInt(book->-book.number))
+                    .limit(booksPerDay)
+                    .collect(Collectors.toList());
+        }
         return collect;
     }
 

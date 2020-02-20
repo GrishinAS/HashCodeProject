@@ -16,9 +16,13 @@ public class Simulator {
         for (int i = 0; i < days; i++) {
             System.out.println("Current day: " + i);
             // регаем либы
-            if (currentReg == null) { //Если только начали регать
+            while (currentReg == null) { //Если только начали регать
                 if (!libRegOrder.isEmpty()) { //если хватило времени всех зарегать
                     currentReg = libRegOrder.remove(0);
+                    if(currentReg.getBooks().isEmpty()){
+                        currentReg=null;
+                    }
+                    else
                     daysTillNextReg = currentReg.getSignUpProcess();
                 }
             }

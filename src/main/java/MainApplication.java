@@ -23,12 +23,13 @@ public class MainApplication {
 
     public static void main(String... args) throws Exception {
         List<String> files = Arrays.asList(
-                INPUT_FILENAMEa,
-                INPUT_FILENAMEb,
-                INPUT_FILENAMEc,
-                INPUT_FILENAMEd,
-                INPUT_FILENAMEe,
-                INPUT_FILENAMEf);
+                //INPUT_FILENAMEa,
+                //INPUT_FILENAMEb,
+                //INPUT_FILENAMEc
+                INPUT_FILENAMEd
+//                INPUT_FILENAMEe,
+//                INPUT_FILENAMEf
+        );
         MainApplication mainApplication = new MainApplication();
         simulator = new Simulator();
         for(String file: files){
@@ -46,7 +47,9 @@ public class MainApplication {
                 writer.println(library.getAlreadyGivenBooks().size());
                 for (Book alreadyGivenBook : library.getAlreadyGivenBooks()) {
                     writer.print(alreadyGivenBook.getNumber()+" ");
-
+                }
+                if(library.getAlreadyGivenBooks().size()==0){
+                    System.out.println("");
                 }
                 writer.print(" \n");
                 //writer.println();
@@ -69,7 +72,7 @@ public class MainApplication {
                 allBooks.add(newBook);
             }
             Library newLib = null;
-            for (int i = 2; i <= libsN *2 + 1; i++) {
+            for (int i = 0; i <= libsN *2 - 1; i++) {
                 String[] libLine = br.readLine().split(" ");
                 if(i%2==0) {
                     newLib = new Library();

@@ -20,7 +20,7 @@ public class Simulator {
                         readyLibs.add(currentReg);
                         currentReg = null;
                     } else {
-                        daysTillNextReg = currentReg.getSignUpProcess() - 1;
+                        daysTillNextReg = currentReg.getSignUpProcess();
                     }
                 }
             }

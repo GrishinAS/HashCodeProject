@@ -34,7 +34,7 @@ public class MainApplication {
                 String[] libLine = br.readLine().split(" ");
                 if(i%2==0) {
                     Library e = new Library();
-
+                    e.
                     allLibs.add(e)
                 }
             }

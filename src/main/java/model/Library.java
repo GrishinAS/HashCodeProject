@@ -7,6 +7,11 @@ public class Library {
     private ArrayList<Book> books = new ArrayList<Book>();
     private int signUpProcess;
     private int booksPerDay;
+    static int indexOfLib;
+
+    public Library() {
+        number = indexOfLib++;
+    }
 
     public int getNumber() {
         return number;

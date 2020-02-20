@@ -5,8 +5,8 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class MainApplication {
-    ArrayList<Book> allBooks = new ArrayList<>();
-    ArrayList<Library> allLibs;
+    ArrayList<Book> allBooks = new ArrayList<>();//TODO init with right lenth
+    ArrayList<Library> allLibs = new ArrayList<>(); //TODO init with right lenth
     int booksN;
     int libsN;
     int daysToScan;
@@ -26,16 +26,25 @@ public class MainApplication {
             daysToScan = Integer.parseInt(s[2]);
             String[] secondLine = br.readLine().split(" ");
             for (String score : secondLine) {
-                Book e = new Book();
-                e.setScore(Integer.parseInt(score));
-                allBooks.add(e);
+                Book newBook = new Book();
+                newBook.setScore(Integer.parseInt(score));
+                allBooks.add(newBook);
             }
-            for (int i = 2; i < libsN * 2; i++) {
+            Library newLib = null;
+            for (int i = 2; i <= libsN *2; i++) {
                 String[] libLine = br.readLine().split(" ");
                 if(i%2==0) {
-                    Library e = new Library();
-                    e.
-                    allLibs.add(e)
+                    newLib = new Library();
+                    newLib.setSignUpProcess(Integer.parseInt(libLine[1]));
+                    newLib.setBooksPerDay(Integer.parseInt(libLine[2]));
+                }
+                if(i%2==1) {
+                    ArrayList<Book> booksForLib = new ArrayList<>();
+                    for (String value : libLine) {
+                        booksForLib.add(allBooks.get(Integer.parseInt(value)));
+                    }
+                    newLib.setBooks(booksForLib);
+                    allLibs.add(newLib);
                 }
             }
         }

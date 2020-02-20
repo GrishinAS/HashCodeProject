@@ -26,8 +26,8 @@ public class MainApplication {
                 //INPUT_FILENAMEa,
                 //INPUT_FILENAMEb,
                 //INPUT_FILENAMEc
-                INPUT_FILENAMEd
-//                INPUT_FILENAMEe,
+                //INPUT_FILENAMEd
+               INPUT_FILENAMEe
 //                INPUT_FILENAMEf
         );
         MainApplication mainApplication = new MainApplication();
